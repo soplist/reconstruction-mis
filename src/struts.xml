@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <!--<constant name="struts.action.extension" value="lp" /> -->
+    <constant name="struts.ui.theme" value="simple" />
+    <package name="struts2" namespace="/" extends="struts-default,json-default">
+        <action name="login" class="loginAction">
+            <result name="loginSuccess">/login_success.jsp</result>
+            <result name="loginFailure">/login_failure.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="input">/login.jsp</result>
+            <!--<result name="list">/customer_list.jsp</result> -->
+            <result name="customerList">/customer_list.jsp</result>
+            <result name="scoreList" type="redirect">listScore</result>
+            <result name="performanceMeasurement">/performance_appraisal_index.jsp</result>
+            <result name="bossVisualAngle">/boss_visual_angle.jsp</result>
+        </action>
+        <action name="logout" method="logout" class="loginAction">
+            <result name="logsucc">/login.jsp</result>
+        </action>
+        <action name="modifyPass" method="modifyPass" class="loginAction">
+            <result name="modify">/modify_pass.jsp</result>
+        </action>
+        <action name="modifyPassDel" method="modifyPassDel" class="loginAction">
+            <result name="success">/login.jsp</result>
+            <result name="failure">/modify_pass.jsp</result>
+        </action>
+        <action name="listCustomer" method="list" class="customerAction">
+            <result name="listCustomer">/customer_list.jsp</result>
+        </action>
+        <action name="listCustomerByCompany" method="listByCompany" class="customerAction">
+            <result name="listCustomer">/customer_list.jsp</result>
+        </action>
+        <action name="listCustomerByCompanyAndLegalRepr" method="listByCompanyAndLegalRepr" class="customerAction">
+            <result name="listCustomer">/customer_list.jsp</result>
+        </action>
+        <action name="addCustomer" method="add" class="customerAction">
+            <result name="addCustomer">/login_success.jsp</result>
+        </action>
+        <action name="updateCustomer" method="update" class="customerAction">
+            <result name="updateCustomer">/login_success.jsp</result>
+        </action>
+        <action name="deleteCustomer" method="delete" class="customerAction">
+            <result name="listCustomer" type="redirect">listCustomer</result>
+        </action>
+        <action name="listScore" method="scoreListByRealName" class="scoreAction">
+            <result name="listScoreByRealName">/score_list.jsp</result>
+            <result name="listScore">/score_list.jsp</result>
+        </action>
+        <action name="previousLaunchScoreForm" method="previousLaunch" class="scoreAction">
+            <result name="launchScoreForm">/launch_score_task.jsp</result>
+        </action>
+        <action name="previousRelaunchScoreForm" method="previousRelaunch" class="scoreAction">
+            <result name="relaunchScoreForm">/relaunch_score_task.jsp</result>
+        </action>
+        <action name="launchScoreForm" method="launch" class="scoreAction">
+            <result name="launchSuccess">/launch_success.jsp</result>
+        </action>
+        <action name="loadTasks" method="loadTasks" class="scoreAction">
+            <result name="loadTasksSuccess">/score_list.jsp</result>
+        </action>
+        <action name="agreeNotice" method="agree" class="scoreAction">
+            <result name="agreeSuccess">/score_list.jsp</result>
+        </action>
+        <action name="reject" method="reject" class="scoreAction">
+            <result name="rejectSuccess">/score_list.jsp</result>
+        </action>
+        <action name="delete" method="delete" class="scoreAction">
+            <result name="deleteSuccess">/score_list.jsp</result>
+        </action>
+        <action name="approve" method="approve" class="scoreAction">
+            <result name="approveSuccess">/score_list.jsp</result>
+        </action>
+        <action name="getArchiveByMonth" method="getArchiveByMonth" class="scoreAction">
+            <result name="getArchiveByMonthSuccess">/score_list.jsp</result>
+        </action>
+        <action name="getDetailTask" method="getDetailTask" class="scoreAction">
+            <result name="getDetailTaskSuccess">/task_detail.jsp</result>
+        </action>
+        <action name="addCustomerPrevious" method="previousAdd" class="customerAction">
+            <result name="addCustomer">/customer_add.jsp</result>
+        </action>
+        <action name="updateCustomerPrevious" method="previousUpdate" class="customerAction">
+            <result name="updateCustomer">/customer_update.jsp</result>
+        </action>
+        <action name="listCustomerByDepartment" method="listByDepartment" class="customerAction">
+            <result name="listCustomer">/customer_list.jsp</result>
+        </action>
+        <action name="listCustomerByArea" method="listByArea" class="customerAction">
+            <result name="listCustomer">/customer_list.jsp</result>
+        </action>
+        <action name="listCustomersByPage" method="listCustomersByPage" class="customerAction">
+            <result name="listCustomer">/customer_list.jsp</result>
+        </action>
+        <action name="pieChartForabcPerMonth" method="pieChartForabcPerMonth" class="chartAction">
+            <result name="showPieChart">/jfreePieChart.jsp</result>
+        </action>
+        <action name="barChartForYear" method="barChartForYear" class="chartAction">
+            <result name="showBarChart">/jfreeBarChart.jsp</result>
+        </action>
+        <action name="getAllPmSetting" method="getAllPmSetting" class="performanceMeasurementAction">
+            <result name="setting">/pmsetting.jsp</result>
+        </action>
+        <action name="updatePercentage" method="updatePercentage" class="performanceMeasurementAction">
+            <result name="setting">/pmsetting.jsp</result>
+        </action>
+        <action name="updateJoinin" method="updateJoinin" class="performanceMeasurementAction">
+            <result name="setting">/pmsetting.jsp</result>
+        </action>
+        <action name="launchTask" method="launchTask" class="performanceMeasurementAction">
+            <result name="setting">/pmsetting.jsp</result>
+        </action>
+        <action name="launchManagerTask" method="launchManagerTask" class="performanceMeasurementAction">
+            <result name="setting">/pmsetting.jsp</result>
+        </action>
+        <action name="previousEvaluate" method="previousEvaluate" class="performanceMeasurementAction">
+            <result name="evaluate">/evaluate.jsp</result>
+            <result name="evaluate_1">/evaluate_1.jsp</result>
+            <result name="evaluate_2">/evaluate_2.jsp</result>
+        </action>
+        <action name="previousManagerOrCompanyEvaluate" method="previousManagerOrCompanyEvaluate" class="performanceMeasurementAction">
+            <result name="evaluate">/evaluate_3.jsp</result>
+        </action>
+        <action name="evaluate1" method="evaluate1" class="performanceMeasurementAction">
+            <result name="login">/login.jsp</result>
+            <result name="success">/evaluate_success.jsp</result>
+        </action>
+        <action name="evaluate2" method="evaluate2" class="performanceMeasurementAction">
+            <result name="evaluate">/evaluate.jsp</result>
+            <result name="success">/evaluate_success.jsp</result>
+        </action>
+        <action name="evaluate3" method="evaluate3" class="performanceMeasurementAction">
+            <result name="login">/login.jsp</result>
+            <result name="success">/evaluate_success.jsp</result>
+        </action>
+        <action name="evaluate4" method="evaluate4" class="performanceMeasurementAction">
+            <result name="login">/login.jsp</result>
+            <result name="success">/evaluate_success.jsp</result>
+        </action>
+        <action name="summaryGetPage" method="summaryGetPage" class="performanceMeasurementAction">
+            <result name="performanceMeasurement">/performance_measurement.jsp</result>
+        </action>
+        <action name="getPmTableByPage" method="getPmTableByPage" class="performanceMeasurementAction">
+            <result name="performanceMeasurement">/performance_measurement.jsp</result>
+        </action>
+        <action name="previousManagerEvaluateSetting" method="previousManagerEvaluateSetting" class="performanceMeasurementAction">
+            <result name="managerEvaluateSetting">/manager_evaluate_setting.jsp</result>
+        </action>
+        <action name="previousPermissionSet" method="previousPermissionSet" class="permissionAction">
+            <result name="set">/permission_set.jsp</result>
+        </action>
+        <action name="updatePermissionSetting" method="updatePermissionSetting" class="permissionAction">
+            <result name="set">/permission_set.jsp</result>
+        </action>
+        <action name="updateUsers" method="updateUsers" class="permissionAction">
+            <result name="set">/permission_set.jsp</result>
+        </action>
+        <action name="updateManagerEvaluateFixedScore" method="updateManagerEvaluateFixedScore" class="performanceMeasurementAction">
+            <result name="managerEvaluateSetting">/manager_evaluate_setting.jsp</result>
+        </action>
+        <action name="catchPointsChartData" method="catchPointsChartData" class="bossVisualAngleAction">
+            <result type="json">
+                <param name="userList">userList</param>
+            </result>
+        </action>
+        <action name="catchPmTaskData" method="catchPmTaskData" class="bossVisualAngleAction">
+            <result type="json">
+                <param name="pmTaskUserList">pmTaskUserList</param>
+            </result>
+        </action>
+        <action name="catchManagerPmTaskData" method="catchManagerPmTaskData" class="bossVisualAngleAction">
+            <result type="json">
+                <param name="managerPmTaskUserList">managerPmTaskUserList</param>
+            </result>
+        </action>
+        <action name="catchInputCustomerData" method="catchInputCustomerData" class="bossVisualAngleAction">
+            <result type="json">
+                <param name="customerMessageInputList">customerMessageInputList</param>
+            </result>
+        </action>
+        <action name="beforeUpdatePassword" method="beforeUpdatePassword" class="accountAction">
+            <result name="updatePassword">/update_password.jsp</result>
+        </action>
+        <action name="updatePassword" method="updatePassword" class="accountAction">
+            <result name="success">/update_password.jsp</result>
+            <result name="failure">/update_password.jsp</result>
+        </action>
+        <action name="launchCommonTask" method="launchCommonTask" class="performanceAppraisalAction">
+            <result name="success">/performance_appraisal_setting.jsp</result>
+        </action>
+        <action name="beforeRedirectToPerformanceAppraisalSettingPage" method="beforeRedirectToPerformanceAppraisalSettingPage" class="performanceAppraisalAction">
+            <result name="success">/performance_appraisal_setting.jsp</result>
+        </action>
+    </package>
+</struts>

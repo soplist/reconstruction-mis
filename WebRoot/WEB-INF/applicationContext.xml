@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+    <bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/misdb?characterEncoding=UTF-8&amp;autoReconnect=true">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">100</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/jingrui/domain/Customer.hbm.xml</value>
+				<value>com/jingrui/domain/User.hbm.xml</value>
+				<value>com/jingrui/domain/Department.hbm.xml</value>
+				<value>com/jingrui/domain/StaffScore.hbm.xml</value>
+				<value>com/jingrui/domain/Permission.hbm.xml</value>
+				<value>com/jingrui/domain/Task.hbm.xml</value>
+				<value>com/jingrui/domain/NoticePeople.hbm.xml</value>
+				<value>com/jingrui/domain/Operate.hbm.xml</value>
+				<value>com/jingrui/domain/Options.hbm.xml</value>
+				<value>com/jingrui/domain/Joinin.hbm.xml</value>
+				<value>com/jingrui/domain/PmTask.hbm.xml</value>
+				<value>com/jingrui/domain/PmTable.hbm.xml</value>
+				<value>com/jingrui/domain/ManagerEvaluateSetting.hbm.xml</value>
+				<value>com/jingrui/domain/UserLoginInformation.hbm.xml</value>
+				<value>com/jingrui/domain/PersonalEvaluationForm.hbm.xml</value>
+				<value>com/jingrui/domain/DepartmentEvaluationForm.hbm.xml</value>
+				<value>com/jingrui/domain/ManagerEvaluationForm.hbm.xml</value>
+				<value>com/jingrui/domain/CompanyEvaluationForm.hbm.xml</value>
+				<value>com/jingrui/domain/ColleagueEvaluationForm.hbm.xml</value>
+				<value>com/jingrui/domain/CommonPerformanceAppraisalTask.hbm.xml</value>
+				<value>com/jingrui/domain/ManagerPerformanceAppraisalTask.hbm.xml</value>
+				<value>com/jingrui/domain/UserPermission.hbm.xml</value>
+				<value>com/jingrui/domain/PerformanceAppraisalTask.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	    <property name="sessionFactory">
+	         <ref bean="sessionFactory"/>
+	    </property>
+	</bean>
+	
+	<!-- dao -->
+	<bean id="customerDAOImpl" class="com.jingrui.dao.impl.CustomerDAOImpl" scope="singleton">
+	     <property name="sessionFactory">  
+            <ref local="sessionFactory"/>  
+        </property> 
+	</bean>
+	<bean id="baseDAOImpl" class="com.jingrui.dao.impl.BaseDAOImpl" scope="singleton">
+	     <property name="sessionFactory">  
+            <ref local="sessionFactory"/>  
+        </property> 
+	</bean>
+	<bean id="sqlServerDBImpl" class="com.jingrui.dao.impl.SqlServerDBImpl" scope="singleton">
+	</bean>
+	<bean id="pointDAOImpl" class="com.jingrui.dao.impl.PointDAOImpl" scope="singleton">
+	</bean>
+	<bean id="sqlServerDAOImpl" class="com.jingrui.sqlserver.impl.SqlServerDAOImpl" scope="singleton">
+	</bean>
+	<bean id="reBaseDAOImpl" class="com.jingrui.redao.impl.BaseDAOImpl" scope="singleton">
+	     <property name="sessionFactory">  
+            <ref local="sessionFactory"/>  
+        </property> 
+	</bean>
+	<bean id="testDAOImpl" class="com.jingrui.dao.impl.TestDAOImpl" scope="singleton">
+	</bean>
+	
+	
+	<!-- service -->
+	<bean id="customerServiceImpl" class="com.jingrui.service.impl.CustomerServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="userServiceImpl" class="com.jingrui.service.impl.UserServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="scoreServiceImpl" class="com.jingrui.service.impl.ScoreServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="departmentServiceImpl" class="com.jingrui.service.impl.DepartmentServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="taskServiceImpl" class="com.jingrui.service.impl.TaskServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="noticePeopleServiceImpl" class="com.jingrui.service.impl.NoticePeopleServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="operateServiceImpl" class="com.jingrui.service.impl.OperateServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="settingServiceImpl" class="com.jingrui.service.impl.SettingServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="joininServiceImpl" class="com.jingrui.service.impl.JoininServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="pmTaskServiceImpl" class="com.jingrui.service.impl.PmTaskServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="pmTableServiceImpl" class="com.jingrui.service.impl.PmTableServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="permissionServiceImpl" class="com.jingrui.service.impl.PermissionServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="managerEvaluateSettingServiceImpl" class="com.jingrui.service.impl.ManagerEvaluateSettingServiceImpl" scope="singleton">  
+        <property name="baseDao" ref="baseDAOImpl" />  
+    </bean>
+    <bean id="sqlServerServiceImpl" class="com.jingrui.service.impl.SqlServerServiceImpl" scope="singleton"> 
+        <property name="sqlServerDAO" ref="sqlServerDAOImpl" />
+    </bean>
+    <bean id="testService1Impl" class="com.jingrui.service.impl.Test1ServiceImpl" scope="singleton">
+    </bean>
+    <bean id="testServiceImpl" class="com.jingrui.service.impl.TestServiceImpl" scope="singleton">
+        <property name="test1Service" ref="testService1Impl" />
+        <property name="testDAO" ref="testDAOImpl" />
+        <property name="baseDao" ref="baseDAOImpl" />
+    </bean>
+    <bean id="userLoginInformationServiceImpl" class="com.jingrui.service.impl.UserLoginInformationServiceImpl" scope="singleton"> 
+        <property name="baseDao" ref="baseDAOImpl" />
+    </bean>
+    <bean id="evaluationFormServiceImpl" class="com.jingrui.service.impl.EvaluationFormServiceImpl" scope="singleton"> 
+        <property name="baseDao" ref="baseDAOImpl" />
+    </bean>
+    <bean id="performanceAppraisalTaskServiceImpl" class="com.jingrui.service.impl.PerformanceAppraisalTaskServiceImpl" scope="singleton"> 
+        <property name="baseDao" ref="baseDAOImpl" />
+    </bean>
+    <bean id="userPermissionServiceImpl" class="com.jingrui.service.impl.UserPermissionServiceImpl" scope="singleton"> 
+        <property name="baseDao" ref="baseDAOImpl" />
+    </bean>
+    
+    <!-- util -->
+    <bean id="pipeImpl" class="com.jingrui.workflow.impl.PipeImpl" scope="singleton"> 
+        <property name="taskService" ref="taskServiceImpl" /> 
+        <property name="noticePeopleService" ref="noticePeopleServiceImpl" />
+        <property name="userService" ref="userServiceImpl" /> 
+        <property name="operateService" ref="operateServiceImpl" /> 
+    </bean>
+    <bean id="loadAllUserInformationXml" class="com.jingrui.util.LoadAllUserInformationXml" scope="singleton"> 
+    </bean>
+    <bean id="buildCompanyStructure" class="com.jingrui.util.BuildCompanyStructure" scope="singleton"> 
+        <constructor-arg ref="loadAllUserInformationXml"/>
+    </bean>
+    <bean id="loadChineseCharactersListXml" class="com.jingrui.util.LoadChineseCharactersListXml" scope="singleton"> 
+    </bean>
+    <bean id="message" class="com.jingrui.util.Message" scope="singleton"> 
+    </bean>
+    <bean id="base64" class="com.jingrui.util.BASE64" scope="singleton"> 
+    </bean>
+    <bean id="loadManagerPerformanceAppraisalConfigXml" class="com.jingrui.util.LoadManagerPerformanceAppraisalConfigXml" scope="singleton"> 
+    </bean>
+    
+    <!-- action -->
+    <bean id="customerAction" class="com.jingrui.action.CustomerAction" scope="session">
+         <property name="customerService" ref="customerServiceImpl" />
+         <property name="departmentService" ref="departmentServiceImpl" />
+    </bean>
+    <bean id="loginAction" class="com.jingrui.action.LoginAction" scope="session">
+         <property name="userService" ref="userServiceImpl" />
+         <property name="deptService" ref="departmentServiceImpl" />
+         <property name="taskService" ref="taskServiceImpl" />
+         <property name="pmTaskService" ref="pmTaskServiceImpl" />
+         <property name="pmTableService" ref="pmTableServiceImpl" />
+         <property name="customerService" ref="customerServiceImpl" />
+         <property name="buildCompanyStructure" ref="buildCompanyStructure" />
+         <property name="userLoginInformationService" ref="userLoginInformationServiceImpl" />
+         <property name="loadChineseCharactersListXml" ref="loadChineseCharactersListXml" />
+         <property name="base64" ref="base64" />
+         <property name="userPermissionService" ref="userPermissionServiceImpl" />
+         <property name="evaluationFormService" ref="evaluationFormServiceImpl" />
+    </bean>
+    <bean id="scoreAction" class="com.jingrui.action.ScoreAction" scope="session">
+         <property name="scoreService" ref="scoreServiceImpl" />
+         <property name="userService" ref="userServiceImpl" />
+         <property name="taskService" ref="taskServiceImpl" />
+         <property name="pipe" ref="pipeImpl" />
+    </bean>
+    <bean id="chartAction" class="com.jingrui.action.ChartAction" scope="session">
+         <property name="scoreService" ref="scoreServiceImpl" />
+    </bean>
+    <bean id="performanceMeasurementAction" class="com.jingrui.action.PerformanceMeasurementAction" scope="session">
+         <property name="userService" ref="userServiceImpl" />
+         <property name="settingService" ref="settingServiceImpl" />
+         <property name="joininService" ref="joininServiceImpl" />
+         <property name="pmTaskService" ref="pmTaskServiceImpl" />
+         <property name="pmTableService" ref="pmTableServiceImpl" />
+         <property name="managerEvaluateSettingService" ref="managerEvaluateSettingServiceImpl" />
+    </bean>
+    <bean id="permissionAction" class="com.jingrui.action.PermissionAction" scope="session">
+         <property name="permissionService" ref="permissionServiceImpl" />
+         <property name="userService" ref="userServiceImpl" />
+    </bean>
+    <bean id="bossVisualAngleAction" class="com.jingrui.action.BossVisualAngleAction" scope="session">
+         <property name="sqlServerService" ref="sqlServerServiceImpl" />
+         <property name="pmTaskService" ref="pmTaskServiceImpl" />
+         <property name="customerService" ref="customerServiceImpl" />
+         <property name="userService" ref="userServiceImpl" />
+    </bean>
+    <bean id="accountAction" class="com.jingrui.action.AccountAction" scope="session">
+         <property name="userLoginInformationService" ref="userLoginInformationServiceImpl" />
+         <property name="loadChineseCharactersListXml" ref="loadChineseCharactersListXml" />
+         <property name="message" ref="message" />
+         <property name="base64" ref="base64" />
+    </bean>
+    <bean id="performanceAppraisalAction" class="com.jingrui.action.PerformanceAppraisalAction" scope="session">
+         <property name="buildCompanyStructure" ref="buildCompanyStructure" />
+         <property name="evaluationFormService" ref="evaluationFormServiceImpl" />
+         <property name="performanceAppraisalTaskService" ref="performanceAppraisalTaskServiceImpl" />
+         <property name="loadManagerPerformanceAppraisalConfigXml" ref="loadManagerPerformanceAppraisalConfigXml" />
+    </bean>
+    
+    <!-- i18n -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+         <property name="basename" value="resource/messages"/>
+         <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean> 
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <bean id="localeResolver"  
+        class="org.springframework.web.servlet.i18n.SessionLocaleResolver">  
+    </bean> 
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	    <tx:attributes>
+	          <tx:method name="*" propagation="REQUIRED"/>
+	    </tx:attributes>
+	</tx:advice>
+	<aop:config>
+	    <aop:pointcut id="allDaoMethod" expression="execution(* com.jingrui.dao.*.*(..))"/>
+	    <aop:advisor pointcut-ref="allDaoMethod" advice-ref="txAdvice"/>
+	</aop:config>
+	</beans>
